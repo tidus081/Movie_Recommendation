@@ -1,4 +1,5 @@
-# excute command on termainal : spark-submit movie-recommendations.py 0
+# excute command on termainal : spark-submit movie-recommendations.py 0(user ID)
+# Use ALS library
 import sys
 from pyspark import SparkConf, SparkContext
 from pyspark.mllib.recommendation import ALS, Rating
