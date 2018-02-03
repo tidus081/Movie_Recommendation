@@ -41,3 +41,25 @@ recommendations = model.recommendProducts(userID, 10)
 for recommendation in recommendations:
     print (nameDict[int(recommendation[1])] + \
         " score " + str(recommendation[2]))
+#output      
+Loading movie names...
+
+
+Training recommendation model...
+
+Ratings for user ID 0:
+Star Wars (1977): 5.0
+Empire Strikes Back, The (1980): 5.0
+Gone with the Wind (1939): 1.0
+
+Top 10 recommendations:
+Bitter Moon (1992) score 7.637147320720586
+Inspector General, The (1949) score 7.0552533608293215
+Endless Summer 2, The (1994) score 6.748218505065088
+Lost in Space (1998) score 6.2803922345453
+Withnail and I (1987) score 6.218525651715016
+Zeus and Roxanne (1997) score 6.162383662537782
+Alphaville (1965) score 6.023343289405428
+Supercop (1992) score 5.7404080535654085
+Cronos (1992) score 5.560759699320645
+Grass Harp, The (1995) score 5.4895220363566395
