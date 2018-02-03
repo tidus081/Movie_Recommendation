@@ -1,16 +1,16 @@
 from pyspark import SparkConf, SparkContext
 
 def loadMovieNames():
-    MovieNames ={}
-    with open("ml-100k/u.ITEM") as f:
+    movieNames = {}
+    with open("C:/SparkCourse/ml-100k/u.ITEM", encoding='ascii', errors="ignore") as f:
         for line in f:
             fields = line.split('|')
-            MovieNames[int(fields[0])] = fields[1]
-    return MovieNames
+            movieNames[int(fields[0])] = fields[1]
+    return movieNames
 
 conf = SparkConf().setMaster("local").setAppName("PopularMovies")
 sc = SparkContext(conf = conf)
-#read data
+
 nameDict = sc.broadcast(loadMovieNames())
 
 lines = sc.textFile("file:///SparkCourse/ml-100k/u.data")
@@ -20,14 +20,34 @@ lines = sc.textFile("file:///SparkCourse/ml-100k/u.data")
 
 # pull only Movie ID and combine with 1 for each elements
 movies = lines.map(lambda x: (int(x.split()[1]), 1))
+
 # reduce the same Movie ID variables and add the values
 movieCounts = movies.reduceByKey(lambda x, y: x + y)
 
 # switch key and value
-flipped = movieCounts.map(lambda xy: (xy[1],xy[0]) )
-# sort by key
+flipped = movieCounts.map( lambda x : (x[1], x[0]))
 sortedMovies = flipped.sortByKey()
 
+sortedMoviesWithNames = sortedMovies.map(lambda countMovie : (nameDict.value[countMovie[1]], countMovie[0]))
+
+results = sortedMoviesWithNames.collect()
+
 for result in results:
-    print(result)
+    print (result)from pyspark import SparkConf, SparkContext
+
+
+#output
+    ......
+('Raiders of the Lost Ark (1981)', 420)
+('Independence Day (ID4) (1996)', 429)
+('Air Force One (1997)', 431)
+('Toy Story (1995)', 452)
+('Scream (1996)', 478)
+
+('English Patient, The (1996)', 481)
+('Liar Liar (1997)', 485)
+('Return of the Jedi (1983)', 507)
+('Fargo (1996)', 508)
+('Contact (1997)', 509)
+('Star Wars (1977)', 584)
 
