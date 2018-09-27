@@ -1,2 +1,4 @@
-# Spark_MovieRecommendation
-# using initial movie rating, Spark recommend movies related to the initial preference.
+# MovieRecommendation
+# It is build on PySpark.
+# using initial movie rating, The model recommends movies related to the initial preference.
+
